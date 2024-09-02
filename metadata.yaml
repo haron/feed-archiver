@@ -1,0 +1,20 @@
+databases:
+  rss:
+    tables:
+      feed_entries:
+        sort_desc: created_at
+        facets:
+          - feed_id
+        facet_size: 20
+      feed_metadata:
+        sort_desc: updated_at
+      sqlite_sequence:
+        hidden: true
+      vec_feed_entries_vector_chunks00:
+        hidden: true
+      vec_feed_entries_chunks:
+        hidden: true
+      vec_feed_entries_rowids:
+        hidden: true
+      vec_feed_entries:
+        hidden: true

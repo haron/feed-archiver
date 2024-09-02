@@ -1,0 +1,6 @@
+.aider*
+*.db
+*.dylib
+*.so
+*.dll
+*.gguf
