@@ -1,0 +1,2 @@
+45 2 * * * www-data find /var/www/upscaler-prod/files -type f -mtime +1 -print -delete |& logger -t upscaler-cleanup
+#

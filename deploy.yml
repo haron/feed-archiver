@@ -1,0 +1,32 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: deploy Feed Archiver
+  hosts: all
+  strategy: free
+  gather_facts: false
+  vars:
+    env: prod
+    prefix: /var/www/feed-archiver-{{ env }}
+    python_version: "3.12"
+  tasks:
+    - name: linter
+      local_action: shell make linter
+
+    - name: upload directory {{ playbook_dir }} to {{ prefix }}
+      synchronize: src="{{ playbook_dir }}/" dest={{ prefix }}
+
+    - name: fix crontab permissions
+      shell: chmod 644 {{ prefix }}/crontab*
+      tags: full
+
+    - name: install crontab
+      file: state=link src={{ prefix }}/crontab dest=/etc/cron.d/feed-archiver modification_time=now
+      tags: full
+
+    - name: install supervisor config
+      file: state=link src={{ prefix }}/supervisor.conf dest=/etc/supervisor/conf.d/feed-archiver.conf
+      tags: full
+
+    - name: restart process
+      supervisorctl: name="feed-archiver" state=restarted
+      tags: restart
