@@ -1,14 +1,4 @@
 #!/usr/bin/env -S uv run -q
-# /// script
-# requires-python = ">=3.12"
-# dependencies = [
-#   "feedparser",
-#   "configargparse",
-#   "sqlite-vec",
-#   "strip-tags",
-#   "sqlean.py",
-# ]
-# ///
 import os
 import sys
 import logging

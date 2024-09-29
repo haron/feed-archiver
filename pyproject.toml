@@ -1,0 +1,13 @@
+[project]
+name = "feed-archiver"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "configargparse>=1.7",
+    "feedparser>=6.0.11",
+    "sqlean-py>=3.45.1",
+    "sqlite-vec>=0.1.2",
+    "strip-tags>=0.5.1",
+]

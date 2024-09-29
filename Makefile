@@ -5,7 +5,7 @@ export DYLD_LIBRARY_PATH="$(shell echo $$(brew --prefix)/opt/sqlite3/lib:$$DYLD_
 help:
 	@./archiver.py -h
 
-fetch:
+fetch: fix-db
 	@./archiver.py --strip-html < $(URLS)
 
 web:
@@ -17,7 +17,12 @@ stats:
 linter: githooks
 	uv tool run black --line-length 120 *.py
 	uv tool run flake8 --config ~/.flake8 *.py
+
+safety:
 	uv tool run safety check -o bare
 
 githooks:
 	git config --local core.hooksPath .githooks
+
+fix-db:
+	@sqlite3 rss.db .dump | sqlite3 rss2.db && mv rss2.db rss.db && rm -rf rss.db-journal
